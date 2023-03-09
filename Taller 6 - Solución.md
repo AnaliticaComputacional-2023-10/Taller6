@@ -21,6 +21,7 @@
 
 Nombre grupo e instancia: `Analistas6`
 IP: 34.239.253.176
+IP2: 54.87.237.118
 
 ![1678223620878](image/Taller6-Solución/1678223620878.png)
 ![1678223636672](image/Taller6-Solución/1678223636672.png)
@@ -88,3 +89,63 @@ For more examples and ideas, visit:
 ![1678225871113](image/Taller6-Solución/1678225871113.png)
 ![1678225888677](image/Taller6-Solución/1678225888677.png)
 ![1678226230445](image/Taller6-Solución/1678226230445.png)
+
+---
+
+---
+
+## 3. Lanzando otros contenedores
+
+![1678397641818](image/Taller6-Solución/1678397641818.png)
+
+![1678397719388](image/Taller6-Solución/1678397719388.png)
+
+![1678397733053](image/Taller6-Solución/1678397733053.png)
+![1678397884550](image/Taller6-Solución/1678397884550.png)
+
+![1678398086305](image/Taller6-Solución/1678398086305.png)
+![1678398135919](image/Taller6-Solución/1678398135919.png)
+![1678398737107](image/Taller6-Solución/1678398737107.png)
+
+```
+FROM node:current-slim
+
+WORKDIR /usr/src/app
+COPY package.json .
+RUN npm install
+
+EXPOSE 8080
+CMD [ "npm", "start" ]
+
+COPY . .
+```
+
+![1678398780028](image/Taller6-Solución/1678398780028.png)
+
+```
+{
+  "name": "vue-event-bulletin",
+  "version": "1.0.0",
+  "description": "Demo application for the scotch.io tutorial",
+  "main": "server.js",
+  "author": "Ryan Chenkie, Jason Lam",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "vue": "^1.0.10",
+    "vue-resource": "^0.1.17"
+  },
+  "devDependencies": {
+    "body-parser": "^1.14.1",
+    "errorhandler": "^1.4.2",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+```
