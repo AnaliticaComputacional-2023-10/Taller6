@@ -568,3 +568,205 @@ Por Slack envíe la URL completa para acceder a la aplicación desplegada (IP+pu
 ---
 
 ---
+
+## 4. Más operaciones en Docker
+
+---
+
+### 1.
+
+Liste las imágenes locales
+
+```shell
+sudo docker image ls
+```
+
+Incluya el resultado en su reporte.
+
+---
+
+### 2.
+
+Liste los contenedores locales en ejecución.
+
+```shell
+sudo docker container ls
+```
+
+Incluya el resultado en su reporte.
+
+---
+
+### 3.
+
+Liste todos los contenedores locales.
+
+```shell
+sudo docker container ls -a
+```
+
+Incluya el resultado en su reporte. Describa las diferencias entre imágenes, contenedores y contenedores en ejecucións.
+
+---
+
+### 4.
+
+Intente eliminar la imagen `hello-world`
+
+```shell
+sudo docker image rm hello-world
+```
+
+Incluya el resultado en su reporte. ¿Por qué no es posible eliminar la imagen?
+
+---
+
+### 5.
+
+Elimine imagen `hello-world`
+
+```shell
+sudo docker image rm --force hello-world
+```
+
+Incluya el resultado en su reporte. Verifique que la imagen (y el contenedor asociado) se hayan eliminado. Incluya un pantallazo de los comandos y la salida en su reporte.
+
+---
+
+### 6.
+
+Traiga la imagen de `hello-world` del registro
+
+```shell
+sudo docker pull hello-world
+```
+
+Incluya el resultado y su interpretación en su reporte. Verifique que la imagen se encuentre localmente.
+
+---
+
+### 7.
+
+Ejecute un contenedor con nombre `holamundo` a partir de la imagen `hello-world`
+
+```shell
+sudo docker container run --name holamundo hello-world
+```
+
+Note que al ejecutar retorna inmediatamente a la terminal de la instancia.
+
+---
+
+### 8.
+
+Traiga la imagen del servidor web apache (httpd) del registro
+
+```shell
+sudo docker pull httpd
+```
+
+Incluya el resultado y su interpretación en su reporte. Verifique que la imagen se encuentre localmente.
+
+---
+
+### 9.
+
+Verifique que la imagen se encuentre localmente
+
+```shell
+sudo docker images
+```
+
+Incluya un pantallazo del resultado en su reporte.
+
+---
+
+### 10.
+
+Usando esta imagen lance un contenedor con nombre docker-apache y acople el puerto 80 de la máquina con el puerto 80 del contenedor
+
+```shell
+sudo docker run -d --name docker-apache -p 80:80 -d httpd
+```
+
+El servidor debe estar corriendo por el puerto 80, luego debe poder accederlo desde el navegador solamente con la IP. Incluya un pantallazo del resultado en su reporte.
+
+---
+
+### 11.
+
+Por Slack comparta la IP de su máquina y contenedor con la página web corriendo.
+
+---
+
+### 12.
+
+Pruebe ahora a detener el contenedor con el comando
+
+```shell
+sudo docker container stop docker-apache
+```
+
+Verifique en su navegador que el servicio se ha detenido. Tome un pantallazo para su reporte.
+
+---
+
+### 13.
+
+Reinicie nuevamente contenedor con el comando
+
+```shell
+sudo docker container start docker-apache
+```
+
+Verifique en su navegador que el servicio ha regresado. Tome un pantallazo para su reporte.
+
+---
+
+### 14.
+
+Para ver los últimos 10 registros del log de su contenedor ejecute el comando
+sudo docker container logs –tail 10 docker-apache
+Incluya el resultado en su reporte.
+
+---
+
+### 15.
+
+Cree una cuenta en Docker Hub https://hub.docker.com y cree un repositorio público, por ejemplo test-repo.
+
+---
+
+### 16.
+
+Desde la terminal de su instancia loguéese en su cuenta usando el comando
+
+```shell
+sudo docker login
+```
+
+---
+
+### 17.
+
+Taguee la imagen httpd para subirla al repositorio
+
+```shell
+sudo docker tag httpd usuario/repositorio:httpd
+```
+
+---
+
+### 18.
+
+Publique su imagen para subirla al repositorio
+
+```shell
+sudo docker push usuario/repositorio:httpd
+```
+
+---
+
+### 19.
+
+Envíe por Slack e incluya en su reporte el enlace a su repositorio con la imagen.
