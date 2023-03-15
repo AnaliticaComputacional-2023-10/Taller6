@@ -134,6 +134,32 @@ La última línea establece el comando que se ejecutará cuando se inicie el con
 
 ## 3. Lanzando otros contenedores
 
+1. Lance un nuevo contenedor y conéctese a la terminal interactiva del mismo usando
+bash con el comando
+
+2. Note que en este caso ha quedado conectado a la terminal del contenedor. En la
+terminal del contenedor verifique la estructura de archivos con ls. En su reporte
+incluya las carpetas disponibles en el directorio raíz.
+
+4. Liste todos los contenedores disponibles con el comando
+`sudo docker ps -a`
+Incluya un pantallazo con el listado y sus caracter´ısticas en su reporte.
+
+7. Liste todos los archivos en esta carpeta en su reporte
+
+8. Explore el Dockerfile, ¿qué informaci´on encuentra allí? Explique los comandos en
+su reporte.
+
+9. Explore el package.json, ¿qué informaci´on encuentra allí? Inclúyala en su reporte.
+
+12. Liste todos los contenedores disponibles con el comando
+`sudo docker ps -a`
+Incluya un pantallazo con el listado y sus características en su reporte.
+
+13. Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada.
+En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y
+antes se hacía en 8000:8000.
+
 ![1678397641818](image/Taller6-Solución/1678397641818.png)
 
 ![1678397719388](image/Taller6-Solución/1678397719388.png)
@@ -187,3 +213,62 @@ COPY . .
   }
 }
 ```
+
+## 4. Mas operaciones en Docker
+
+1. Liste las im´agenes locales
+`sudo docker image ls`
+Incluya el resultado en su reporte.
+
+2. Liste los contenedores locales en ejecuci´on.
+`sudo docker container ls`
+Incluya el resultado en su reporte.
+
+3. Liste todos los contenedores locales.
+`sudo docker container ls -a`
+Incluya el resultado en su reporte. Describa las diferencias entre im´agenes, contenedores y contenedores en ejecuci´ons.
+
+4. Intente eliminar la imagen hello-world
+`sudo docker image rm hello - world`
+Incluya el resultado en su reporte. ¿Por qu´e no es posible eliminar la imagen?
+
+5. Elimine imagen hello-world
+`sudo docker image rm --force hello - world`
+Incluya el resultado en su reporte. Verifique que la imagen (y el contenedor asociado) se hayan eliminado. Incluya un pantallazo de los comandos y la salida en su
+reporte.
+
+6. Traiga la imagen de hello-world del registro
+`sudo docker pull hello - world`
+Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
+encuentre localmente.
+
+8. Traiga la imagen del servidor web apache (httpd) del registro
+`sudo docker pull httpd`
+Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
+encuentre localmente
+
+9. Verifique que la imagen se encuentre localmente
+`sudo docker images`
+Incluya un pantallazo del resultado en su reporte.
+
+10. Usando esta imagen lance un contenedor con nombre docker-apache y acople el
+puerto 80 de la m´aquina con el puerto 80 del contenedor
+`sudo docker run -d --name docker - apache -p 80:80 -d httpd`
+El servidor debe estar corriendo por el puerto 80, luego debe poder accederlo desde
+el navegador solamente con la IP. Incluya un pantallazo del resultado en su reporte.
+
+12. Pruebe ahora a detener el contenedor con el comando
+`sudo docker container stop docker - apache`
+Verifique en su navegador que el servicio se ha detenido. Tome un pantallazo para
+su reporte.
+
+13. Reinicie nuevamente contenedor con el comando
+`sudo docker container start docker - apache`
+Verifique en su navegador que el servicio ha regresado. Tome un pantallazo para su
+reporte.
+
+14. Para ver los ´ultimos 10 registros del log de su contenedor ejecute el comando
+`sudo docker container logs --tail 10 docker-apache`
+Incluya el resultado en su reporte.
+
+19. Env´ıe por Slack e incluya en su reporte el enlace a su repositorio con la imagen.
