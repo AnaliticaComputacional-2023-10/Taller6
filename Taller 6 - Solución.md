@@ -132,6 +132,8 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
+![1/1_7](image/Taller6-Solución/1/1_7.png)
+
 ---
 
 ### 8.
@@ -212,6 +214,203 @@ For more examples and ideas, visit:
 
 ---
 
+### 1.
+
+Localmente descargue los archivos `Dockerfile` y `hello.py`, que acompañan este taller.
+
+---
+
+### 2.
+
+Abra el archivo Dockerfile y describa su contenido en su reporte. Para esto tenga presente que
+
+- `FROM` determina la imagen base que se usa como sistema operativo y aplicaciones iniciales.
+- `RUN` ejecuta comandos al interior del contenedor.
+- `COPY` copia archivos del sistema hospedador (la máquina virtual) al contenedor.
+- `ENV` permite definir variables de entorno.
+- `EXPOSE` abre un puerto del contenedor.
+- `CMD` es el comando que se ejecuta al lanzar el contenedor.
+
+```docker
+# syntax=docker/dockerfile:1
+FROM ubuntu:22.04
+
+# install app dependencies
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip install flask==2.1.*
+
+# install app
+COPY hello.py /
+
+# final configuration
+ENV FLASK_APP=hello
+EXPOSE 8000
+CMD flask run --host 0.0.0.0 --port 8000
+```
+
+- `syntax=docker/dockerfile:1`: define la versión de la sintaxis del Dockerfile. En este caso, se está usando la versión 1 de la sintaxis de Docker.
+
+- `FROM ubuntu:22.04`: indica la imagen base que se va a utilizar para construir la imagen de Docker. En este caso, se está utilizando la imagen de Ubuntu 22.04.
+
+- `install app dependencies`
+- `RUN apt-get update && apt-get install -y python3 python3-pip`: ejecuta un comando dentro de la imagen para instalar las dependencias necesarias para la aplicación. En este caso, se están actualizando los paquetes de Ubuntu con `apt-get update`, y luego con `apt-get install` se están instalando `python3` y `python3-pip`.
+
+- `RUN pip install flask==2.1.*`: instala la librería `Flask` de Python usando el comando `pip install`. En este caso, se está instalando la versión `2.1.*` de Flask al interior del
+  contenedor.
+
+- `install app`
+- `COPY hello.py /`: copia el archivo `hello.py` desde la ruta actual del sistema hospedador en el que se está construyendo el Docker al contenedor.
+  Esto significa que el archivo `hello.py` estará disponible en la imagen de Docker.
+
+- `final configuration`
+- `ENV FLASK_APP=hello`: establece una variable de entorno llamada `FLASK_APP` con el valor hello. Esto indica a Flask que debe usar el archivo `hello.py` como la aplicación de Flask principal
+
+- `EXPOSE 8000`: expone el puerto `8000` de la imagen. Esto significa que, cuando se ejecute la imagen de Docker, se podrá acceder a la aplicación a través del puerto `8000`.
+
+- `CMD flask run --host 0.0.0.0 --port 8000`: establece el comando que se ejecutará cuando se inicie el contenedor. En este caso, el comando es flask run, lo que iniciará la aplicación Flask. Los argumentos `--host 0.0.0.0` y `--port 8000` indican que la aplicación debe escuchar en todas las direcciones IP (0.0.0.0) y en el puerto 8000.
+
+---
+
+### 3.
+
+Copie estos archivos a su máquina remota. Suponiendo que tanto estos archivos como su llave .pem se encuentran en la misma carpeta, navegue a esta carpeta y emita el comando
+
+```shell
+scp -i key.pem Dockerfile ubuntu@IP:/home/ubuntu
+```
+
+Repita para hello.py.
+
+![2/2_3](image/Taller6-Solución/1678224928378.png)
+
+---
+
+### 4.
+
+Conéctese nuevamente a la máquina y verifique que los dos archivos se encuentran disponibles en la misma carpeta.
+
+![2/2_4](image/Taller6-Solución/2/2_4.png)
+
+---
+
+### 5.
+
+Desde esta carpeta construya (build) la imagen con el comando
+
+```shell
+sudo docker build -t test:latest .
+```
+
+Aquí `test` es el nombre del contenedor, latest es la versión y el punto `.` define que el folder de contexto para la ejecución es la carpeta actual. Esto implica que tanto el `Dockerfile` que define al contenedor como el archivo `hello.py` que se copia al contenedor deben estar en la misma carpeta, desde donde se ejecuta la instrucción anterior. Una vez se haya ejecutado la construcción del contenedor, tome un pantallazo e inclúyalo en su reporte.
+
+![2/2_5](image/Taller6-Solución/2/2_5.png)
+
+---
+
+### 6.
+
+Ahora ejecute el contenedor con el comando
+
+```shell
+sudo docker run -p 8000:8000 test:latest
+```
+
+Note que además de indicar el nombre y versión del contenedor a ejecutar, se enlazan el puerto 8000 del contenedor con el mismo de la máquina, para así hacer disponible lo que se exponga a través de este puerto a la máquina.
+![2/2_6_1](image/Taller6-Solución/2/2_6_1.png)
+![2/2_6_2](image/Taller6-Solución/2/2_6_2.png)
+
+---
+
+### 7.
+
+Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada.
+
+![2/2_7_1](image/Taller6-Solución/2/2_7_1.png)
+![2/2_7_2](image/Taller6-Solución/2/2_7_2.png)
+
+---
+
+### 8.
+
+Por Slack envíe la URL completa para acceder a la aplicación desplegada (IP:puerto). En su reporte incluya un pantallazo del navegador con la aplicación funcionando.
+
+![2/2_8](image/Taller6-Solución/2/2_8.png)
+
+---
+
+### 9.
+
+En la terminal de la máquina detenga el proceso con CTRL+C. Si tiene dificultades conéctese a la máquina con otra terminal, liste los contenedores disponibles con
+
+```shell
+sudo docker ps -a
+```
+
+![2_9_1](image/Taller6-Solución/2/2_9_1.png)
+
+Confirme el ID del contenedor que está corriendo y deténgalo con
+
+```shell
+sudo docker container stop ID
+```
+
+![2/2_9_2](image/Taller6-Solución/2/2_9_2.png)
+
+Verifique que el proceso de la aplicación haya terminado en la terminal donde la ejecutó.
+
+![2/2_9_3](image/Taller6-Solución/2/2_9_3.png)
+
+---
+
+---
+
+## 3. Lanzando Otros contenedores
+
+---
+
+Lance un nuevo contenedor y conéctese a la terminal interactiva del mismo usando bash con el comando
+
+sudo docker run -it ubuntu bash
+Copie la salida en pantalla en su reporte.
+
+Note que en este caso ha quedado conectado a la terminal del contenedor. En la terminal del contenedor verifique la estructura de archivos con ls. En su reporte incluya las carpetas disponibles en el directorio raíz.
+
+Salga de la terminal del contenedor con exit
+
+Liste todos los contenedores disponibles con el comando
+
+sudo docker ps -a
+Incluya un pantallazo con el listado y sus características en su reporte.
+
+En la VM clone el repositorio de prueba
+
+git clone https://github.com/dockersamples/node-bulletin-board
+Navegue al directorio del repositorio
+
+cd node-bulletin-board/bulletin-board-app
+Liste todos los archivos en esta carpeta en su reporte.
+
+Explore el Dockerfile, ¿qué información encuentra allí? Explique los comandos en su reporte.
+
+Explore el package.json, ¿qué información encuentra allí? Inclúyala en su reporte.
+
+Construya la imagen
+
+sudo docker build --tag bulletinboard:1.0 .
+Ejecute el contenedor con nombre bb y publíquelo en el puerto 8000
+
+sudo docker run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+Liste todos los contenedores disponibles con el comando
+
+sudo docker ps -a
+Incluya un pantallazo con el listado y sus características en su reporte.
+
+Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada. En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y antes se hacía en 8000:8000.
+
+Por Slack envíe la URL completa para acceder a la aplicación desplegada (IP+puerto).
+
+---
+
 2. Abra el archivo Dockerfile y describa su contenido en su reporte. Para esto tenga presente que
 
 - FROM determina la imagen base que se usa como sistema operativo y aplicaciones iniciales.
@@ -220,52 +419,6 @@ For more examples and ideas, visit:
 - ENV permite definir variables de entorno.
 - EXPOSE abre un puerto del contenedor.
 - CMD es el comando que se ejecuta al lanzar el contenedor.
-
-`syntax=docker/dockerfile:1`
-
-La primera línea define la versión de la sintaxis del Dockerfile. En este caso, se está usando la versión 1 de la sintaxis de Docker.
-
-`FROM ubuntu:22.04`
-
-La segunda línea indica la imagen base que se va a utilizar para construir la imagen de Docker. En este caso, se está utilizando la imagen de Ubuntu 22.04.
-
-`install app dependencies`
-`RUN apt-get update && apt-get install -y python3 python3-pip`
-
-La tercera línea ejecuta un comando dentro de la imagen para instalar las dependencias necesarias para la aplicación. En este caso, se están actualizando los paquetes de Ubuntu con `apt-get update`, y luego con `apt-get install` se están instalando `python3` y `python3-pip`.
-
-`RUN pip install flask==2.1.*`
-
-La cuarta línea instala la librería `Flask` de Python usando el comando `pip install`. En este caso, se está instalando la versión `2.1.*` de Flask al interior del
-contenedor.
-
-`install app`
-`COPY hello.py /`
-
-La quinta línea copia el archivo `hello.py` desde la ruta actual del sistema hospedador en el que se está construyendo el Docker al contenedor.
-Esto significa que el archivo `hello.py` estará disponible en la imagen de Docker.
-
-`final configuration`
-`ENV FLASK_APP=hello`
-
-La sexta línea establece una variable de entorno llamada `FLASK_APP` con el valor hello. Esto indica a Flask que debe usar el archivo `hello.py` como la aplicación
-de Flask principal
-
-`EXPOSE 8000`
-
-La séptima línea expone el puerto `8000` de la imagen. Esto significa que, cuando se ejecute la imagen de Docker, se podrá acceder a la aplicación a través del puerto `8000`.
-
-`CMD flask run --host 0.0.0.0 --port 8000`
-
-La última línea establece el comando que se ejecutará cuando se inicie el contenedor. En este caso, el comando es flask run, lo que iniciará la aplicación Flask. Los argumentos `--host 0.0.0.0` y `--port 8000` indican que la aplicación debe escuchar en todas las direcciones IP (0.0.0.0) y en el puerto 8000.
-
-![1678224928378](image/Taller6-Solución/1678224928378.png)
-![1678224940582](image/Taller6-Solución/1678224940582.png)
-![1678225807531](image/Taller6-Solución/1678225807531.png)
-![1678225836077](image/Taller6-Solución/1678225836077.png)
-![1678225871113](image/Taller6-Solución/1678225871113.png)
-![1678225888677](image/Taller6-Solución/1678225888677.png)
-![1678226230445](image/Taller6-Solución/1678226230445.png)
 
 ---
 
