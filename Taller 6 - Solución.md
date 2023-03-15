@@ -166,7 +166,7 @@ Para verificar su instalación, descargue, construya y ejecute la imagen hello-w
 sudo docker run hello-world
 ```
 
-![1/1_10](image/Taller6-Solución/1678224282950.png)
+![1/1_10](image/Taller6-Solución/1/1_10.png)
 
 ---
 
