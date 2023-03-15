@@ -24,9 +24,6 @@
 1. Ingrese a su cuenta y familiarícese con la consola.
 1. Asegúrese de que en la esquina superior derecha aparezca la región N. Virginia.
 1. Nota: defina un nombre para su grupo, defínalo claramente en reporte y use este nombre como parte inicial de todos los recursos que cree.
-
-   - **Nombre Grupo**: `Analistas6`
-
 1. Nota 2: la entrega de este taller consiste en un reporte y unos archivos de soporte. Cree el archivo de su reporte como un documento de texto en el que pueda fácilmente incorporar capturas de pantalla, textos y similares. Puede ser un archivo de word, libre office, markdown, entre otros.
 
 ---
@@ -47,7 +44,7 @@ En la consola de EC2 lance una instancia t2.micro, Ubuntu server con la configur
 - Dirección IPv4 pública: `54.160.108.255`
 - Dirección IP privada: `172.31.56.22`
 
-![1_1](image/Taller6-Solución/1_1.png)
+![1/1_1](image/Taller6-Solución/1/1_1.png)
 
 ---
 
@@ -67,8 +64,8 @@ ssh -i llave.pem ubuntu@IP
 
 Note que usamos en este caso ubuntu en vez de ec2-user, pues éste es el usuario creado por defecto como administrador con sistema operativo Ubuntu server.
 
-![1_2_1](image/Taller6-Solución/1_2_1.png)
-![1_2_2](image/Taller6-Solución/1_2_2.png)
+![1/1_2_1](image/Taller6-Solución/1/1_2_1.png)
+![1/1_2_2](image/Taller6-Solución/1/1_2_2.png)
 
 ---
 
@@ -80,7 +77,7 @@ Elimine versiones anteriores de Docker (esto genera un error si no hay versiones
 sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
 
-![1_3](image/Taller6-Solución/1_3.png)
+![1/1_3](image/Taller6-Solución/1/1_3.png)
 
 ---
 
@@ -92,7 +89,7 @@ Actualice el índice de paquetes
 sudo apt-get update
 ```
 
-![1_4](image/Taller6-Solución/1_4.png)
+![1/1_4](image/Taller6-Solución/1/1_4.png)
 
 ---
 
@@ -108,7 +105,7 @@ gnupg \
 lsb-release
 ```
 
-![1_5](image/Taller6-Solución/1_5.png)
+![1/1_5](image/Taller6-Solución/1/1_5.png)
 
 ---
 
@@ -121,7 +118,7 @@ sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ```
 
-![1_6](image/Taller6-Solución/1_6.png)
+![1/1_6](image/Taller6-Solución/1/1_6.png)
 
 ---
 
@@ -145,7 +142,7 @@ Actualice nuevamente el índice de paquetes
 sudo apt-get update
 ```
 
-![1_8](image/Taller6-Solución/1_8.png)
+![1/1_8](image/Taller6-Solución/1/1_8.png)
 
 ---
 
@@ -211,7 +208,7 @@ For more examples and ideas, visit:
 
 ---
 
-### 2. Lance una aplicación sencilla en Python en un Docker
+## 2. Lance una aplicación sencilla en Python en un Docker
 
 ---
 
