@@ -1,6 +1,6 @@
 # Taller 6
 
-### Docker
+## Docker
 
 ##### Analítica Computacional para la Toma de Decisiones
 
@@ -15,25 +15,167 @@
 
 ---
 
+## Pre-requisitos
+
+1. Para esta sesión va a requerir una cuenta de Amazon Web Services - AWS. Para esto hay varias opciones:
+1. Utilizar una cuenta propia ya creada.
+1. Crear una cuenta nueva. En este caso recuerde que requiere ingresar datos de una tarjeta de crédito. Usaremos recursos disponibles en la capa gratuita (https://aws.amazon.com/free/), pero es posible que se generen algunos costos menores.
+1. Usar la cuenta de AWS Academy enviada a su correo por el instructor. En este caso emplee el Learner Lab.
+1. Ingrese a su cuenta y familiarícese con la consola.
+1. Asegúrese de que en la esquina superior derecha aparezca la región N. Virginia.
+1. Nota: defina un nombre para su grupo, defínalo claramente en reporte y use este nombre como parte inicial de todos los recursos que cree.
+
+   - **Nombre Grupo**: `Analistas6`
+
+1. Nota 2: la entrega de este taller consiste en un reporte y unos archivos de soporte. Cree el archivo de su reporte como un documento de texto en el que pueda fácilmente incorporar capturas de pantalla, textos y similares. Puede ser un archivo de word, libre office, markdown, entre otros.
+
+---
+
+---
+
 ## 1. Instale Docker y lance su primer contenedor de prueba
 
 ---
 
-Nombre grupo e instancia: `Analistas6`
-IP: 34.239.253.176
-IP2: 54.87.237.118
+### 1.
 
-![1678223620878](image/Taller6-Solución/1678223620878.png)
-![1678223636672](image/Taller6-Solución/1678223636672.png)
-![1678223706486](image/Taller6-Solución/1678223706486.png)
-![1678223754898](image/Taller6-Solución/1678223754898.png)
-![1678223874828](image/Taller6-Solución/1678223874828.png)
-![1678224092191](image/Taller6-Solución/1678224092191.png)
-![1678224102166](image/Taller6-Solución/1678224102166.png)
+En la consola de EC2 lance una instancia t2.micro, Ubuntu server con la configuración estándar.
+
+**R/**
+
+- Nombre grupo e instancia: `Analistas6`
+- Dirección IPv4 pública: `54.160.108.255`
+- Dirección IP privada: `172.31.56.22`
+
+![1_1](image/Taller6-Solución/1_1.png)
+
+---
+
+### 2.
+
+Para conectarse a la instancia, en una terminal emita el comando
+
+```shell
+ssh -i /path/to/llave.pem ubuntu@IP
+```
+
+Donde /path/to/ se refiere a la ubicación del archivo `llave.pem` que descargó, e IP es la dirección IP de la instancia EC2 que lanzó. Si prefiere, en la terminal puede navegar a la ubicación del archivo `llave.pem` y emitir el comando
+
+```shell
+ssh -i llave.pem ubuntu@IP
+```
+
+Note que usamos en este caso ubuntu en vez de ec2-user, pues éste es el usuario creado por defecto como administrador con sistema operativo Ubuntu server.
+
+![1_2_1](image/Taller6-Solución/1_2_1.png)
+![1_2_2](image/Taller6-Solución/1_2_2.png)
+
+---
+
+### 3.
+
+Elimine versiones anteriores de Docker (esto genera un error si no hay versiones anteriores, en cuyo caso puede continuar también)
+
+```shell
+sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+
+![1_3](image/Taller6-Solución/1_3.png)
+
+---
+
+### 4.
+
+Actualice el índice de paquetes
+
+```shell
+sudo apt-get update
+```
+
+![1_4](image/Taller6-Solución/1_4.png)
+
+---
+
+### 5.
+
+Instale dependencias
+
+```shell
+sudo apt-get install \
+ca-certificates \
+curl \
+gnupg \
+lsb-release
+```
+
+![1_5](image/Taller6-Solución/1_5.png)
+
+---
+
+### 6.
+
+Agregue la llave GPG de Docker
+
+```shell
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+![1_6](image/Taller6-Solución/1_6.png)
+
+---
+
+### 7.
+
+Agregue el repositorio a su sistema
+
+```shell
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+---
+
+### 8.
+
+Actualice nuevamente el índice de paquetes
+
+```shell
+sudo apt-get update
+```
+
+![1_8](image/Taller6-Solución/1_8.png)
+
+---
+
+### 9.
+
+Instale Docker Engine, containerd, y Docker Compose
+
+```shell
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
 ![1678224232872](image/Taller6-Solución/1678224232872.png)
+
+---
+
+### 10.
+
+Para verificar su instalación, descargue, construya y ejecute la imagen hello-world
+
+```shell
+sudo docker run hello-world
+```
+
 ![1678224282950](image/Taller6-Solución/1678224282950.png)
 
-11. Copie la salida en pantalla en su reporte
+---
+
+### 11.
+
+Copie la salida en pantalla en su reporte.
 
 ```shell
 ubuntu@ip-172-31-56-22:~$ sudo docker run hello-world
@@ -69,7 +211,7 @@ For more examples and ideas, visit:
 
 ---
 
-## 2. Lance una aplicación sencilla en Python en un Docker
+### 2. Lance una aplicación sencilla en Python en un Docker
 
 ---
 
@@ -135,30 +277,30 @@ La última línea establece el comando que se ejecutará cuando se inicie el con
 ## 3. Lanzando otros contenedores
 
 1. Lance un nuevo contenedor y conéctese a la terminal interactiva del mismo usando
-bash con el comando
+   bash con el comando
 
 2. Note que en este caso ha quedado conectado a la terminal del contenedor. En la
-terminal del contenedor verifique la estructura de archivos con ls. En su reporte
-incluya las carpetas disponibles en el directorio raíz.
+   terminal del contenedor verifique la estructura de archivos con ls. En su reporte
+   incluya las carpetas disponibles en el directorio raíz.
 
-4. Liste todos los contenedores disponibles con el comando
-`sudo docker ps -a`
-Incluya un pantallazo con el listado y sus caracter´ısticas en su reporte.
+3. Liste todos los contenedores disponibles con el comando
+   `sudo docker ps -a`
+   Incluya un pantallazo con el listado y sus caracter´ısticas en su reporte.
 
-7. Liste todos los archivos en esta carpeta en su reporte
+4. Liste todos los archivos en esta carpeta en su reporte
 
-8. Explore el Dockerfile, ¿qué informaci´on encuentra allí? Explique los comandos en
-su reporte.
+5. Explore el Dockerfile, ¿qué informaci´on encuentra allí? Explique los comandos en
+   su reporte.
 
-9. Explore el package.json, ¿qué informaci´on encuentra allí? Inclúyala en su reporte.
+6. Explore el package.json, ¿qué informaci´on encuentra allí? Inclúyala en su reporte.
 
-12. Liste todos los contenedores disponibles con el comando
-`sudo docker ps -a`
-Incluya un pantallazo con el listado y sus características en su reporte.
+7. Liste todos los contenedores disponibles con el comando
+   `sudo docker ps -a`
+   Incluya un pantallazo con el listado y sus características en su reporte.
 
-13. Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada.
-En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y
-antes se hacía en 8000:8000.
+8. Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada.
+   En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y
+   antes se hacía en 8000:8000.
 
 ![1678397641818](image/Taller6-Solución/1678397641818.png)
 
@@ -214,61 +356,61 @@ COPY . .
 }
 ```
 
-## 4. Mas operaciones en Docker
+### 4. Mas operaciones en Docker
 
 1. Liste las im´agenes locales
-`sudo docker image ls`
-Incluya el resultado en su reporte.
+   `sudo docker image ls`
+   Incluya el resultado en su reporte.
 
 2. Liste los contenedores locales en ejecuci´on.
-`sudo docker container ls`
-Incluya el resultado en su reporte.
+   `sudo docker container ls`
+   Incluya el resultado en su reporte.
 
 3. Liste todos los contenedores locales.
-`sudo docker container ls -a`
-Incluya el resultado en su reporte. Describa las diferencias entre im´agenes, contenedores y contenedores en ejecuci´ons.
+   `sudo docker container ls -a`
+   Incluya el resultado en su reporte. Describa las diferencias entre im´agenes, contenedores y contenedores en ejecuci´ons.
 
 4. Intente eliminar la imagen hello-world
-`sudo docker image rm hello - world`
-Incluya el resultado en su reporte. ¿Por qu´e no es posible eliminar la imagen?
+   `sudo docker image rm hello - world`
+   Incluya el resultado en su reporte. ¿Por qu´e no es posible eliminar la imagen?
 
 5. Elimine imagen hello-world
-`sudo docker image rm --force hello - world`
-Incluya el resultado en su reporte. Verifique que la imagen (y el contenedor asociado) se hayan eliminado. Incluya un pantallazo de los comandos y la salida en su
-reporte.
+   `sudo docker image rm --force hello - world`
+   Incluya el resultado en su reporte. Verifique que la imagen (y el contenedor asociado) se hayan eliminado. Incluya un pantallazo de los comandos y la salida en su
+   reporte.
 
 6. Traiga la imagen de hello-world del registro
-`sudo docker pull hello - world`
-Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
-encuentre localmente.
+   `sudo docker pull hello - world`
+   Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
+   encuentre localmente.
 
-8. Traiga la imagen del servidor web apache (httpd) del registro
-`sudo docker pull httpd`
-Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
-encuentre localmente
+7. Traiga la imagen del servidor web apache (httpd) del registro
+   `sudo docker pull httpd`
+   Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
+   encuentre localmente
 
-9. Verifique que la imagen se encuentre localmente
-`sudo docker images`
-Incluya un pantallazo del resultado en su reporte.
+8. Verifique que la imagen se encuentre localmente
+   `sudo docker images`
+   Incluya un pantallazo del resultado en su reporte.
 
-10. Usando esta imagen lance un contenedor con nombre docker-apache y acople el
-puerto 80 de la m´aquina con el puerto 80 del contenedor
-`sudo docker run -d --name docker - apache -p 80:80 -d httpd`
-El servidor debe estar corriendo por el puerto 80, luego debe poder accederlo desde
-el navegador solamente con la IP. Incluya un pantallazo del resultado en su reporte.
+9. Usando esta imagen lance un contenedor con nombre docker-apache y acople el
+   puerto 80 de la m´aquina con el puerto 80 del contenedor
+   `sudo docker run -d --name docker - apache -p 80:80 -d httpd`
+   El servidor debe estar corriendo por el puerto 80, luego debe poder accederlo desde
+   el navegador solamente con la IP. Incluya un pantallazo del resultado en su reporte.
 
-12. Pruebe ahora a detener el contenedor con el comando
-`sudo docker container stop docker - apache`
-Verifique en su navegador que el servicio se ha detenido. Tome un pantallazo para
-su reporte.
+10. Pruebe ahora a detener el contenedor con el comando
+    `sudo docker container stop docker - apache`
+    Verifique en su navegador que el servicio se ha detenido. Tome un pantallazo para
+    su reporte.
 
-13. Reinicie nuevamente contenedor con el comando
-`sudo docker container start docker - apache`
-Verifique en su navegador que el servicio ha regresado. Tome un pantallazo para su
-reporte.
+11. Reinicie nuevamente contenedor con el comando
+    `sudo docker container start docker - apache`
+    Verifique en su navegador que el servicio ha regresado. Tome un pantallazo para su
+    reporte.
 
-14. Para ver los ´ultimos 10 registros del log de su contenedor ejecute el comando
-`sudo docker container logs --tail 10 docker-apache`
-Incluya el resultado en su reporte.
+12. Para ver los ´ultimos 10 registros del log de su contenedor ejecute el comando
+    `sudo docker container logs --tail 10 docker-apache`
+    Incluya el resultado en su reporte.
 
-19. Env´ıe por Slack e incluya en su reporte el enlace a su repositorio con la imagen.
+13. Env´ıe por Slack e incluya en su reporte el enlace a su repositorio con la imagen.
