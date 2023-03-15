@@ -154,7 +154,7 @@ Instale Docker Engine, containerd, y Docker Compose
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-![1678224232872](image/Taller6-Solución/1678224232872.png)
+![1/1_9](image/Taller6-Solución/1/1_9.png)
 
 ---
 
@@ -166,7 +166,7 @@ Para verificar su instalación, descargue, construya y ejecute la imagen hello-w
 sudo docker run hello-world
 ```
 
-![1678224282950](image/Taller6-Solución/1678224282950.png)
+![1/1_10](image/Taller6-Solución/1678224282950.png)
 
 ---
 
