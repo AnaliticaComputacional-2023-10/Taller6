@@ -82,6 +82,44 @@ For more examples and ideas, visit:
 - EXPOSE abre un puerto del contenedor.
 - CMD es el comando que se ejecuta al lanzar el contenedor.
 
+`syntax=docker/dockerfile:1`
+
+La primera línea define la versión de la sintaxis del Dockerfile. En este caso, se está usando la versión 1 de la sintaxis de Docker.
+
+`FROM ubuntu:22.04`
+
+La segunda línea indica la imagen base que se va a utilizar para construir la imagen de Docker. En este caso, se está utilizando la imagen de Ubuntu 22.04.
+
+`install app dependencies`
+`RUN apt-get update && apt-get install -y python3 python3-pip`
+
+La tercera línea ejecuta un comando dentro de la imagen para instalar las dependencias necesarias para la aplicación. En este caso, se están actualizando los paquetes de Ubuntu con `apt-get update`, y luego con `apt-get install` se están instalando `python3` y `python3-pip`.
+
+`RUN pip install flask==2.1.*`
+
+La cuarta línea instala la librería `Flask` de Python usando el comando `pip install`. En este caso, se está instalando la versión `2.1.*` de Flask al interior del
+contenedor.
+
+`install app`
+`COPY hello.py /`
+
+La quinta línea copia el archivo `hello.py` desde la ruta actual del sistema hospedador en el que se está construyendo el Docker al contenedor.
+Esto significa que el archivo `hello.py` estará disponible en la imagen de Docker.
+
+`final configuration`
+`ENV FLASK_APP=hello`
+
+La sexta línea establece una variable de entorno llamada `FLASK_APP` con el valor hello. Esto indica a Flask que debe usar el archivo `hello.py` como la aplicación
+de Flask principal
+
+`EXPOSE 8000`
+
+La séptima línea expone el puerto `8000` de la imagen. Esto significa que, cuando se ejecute la imagen de Docker, se podrá acceder a la aplicación a través del puerto `8000`.
+
+`CMD flask run --host 0.0.0.0 --port 8000`
+
+La última línea establece el comando que se ejecutará cuando se inicie el contenedor. En este caso, el comando es flask run, lo que iniciará la aplicación Flask. Los argumentos `--host 0.0.0.0` y `--port 8000` indican que la aplicación debe escuchar en todas las direcciones IP (0.0.0.0) y en el puerto 8000.
+
 ![1678224928378](image/Taller6-Solución/1678224928378.png)
 ![1678224940582](image/Taller6-Solución/1678224940582.png)
 ![1678225807531](image/Taller6-Solución/1678225807531.png)
