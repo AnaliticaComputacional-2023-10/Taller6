@@ -368,102 +368,90 @@ Verifique que el proceso de la aplicación haya terminado en la terminal donde l
 
 ---
 
+### 1.
+
 Lance un nuevo contenedor y conéctese a la terminal interactiva del mismo usando bash con el comando
 
+```shell
 sudo docker run -it ubuntu bash
+```
+
 Copie la salida en pantalla en su reporte.
+
+![3/3_1_1](image/Taller6-Solución/3/3_1_1.png)
+
+---
+
+### 2.
 
 Note que en este caso ha quedado conectado a la terminal del contenedor. En la terminal del contenedor verifique la estructura de archivos con ls. En su reporte incluya las carpetas disponibles en el directorio raíz.
 
-Salga de la terminal del contenedor con exit
+![3/3_1_2](image/Taller6-Solución/3/3_1_2.png)
+
+---
+
+### 3.
+
+Salga de la terminal del contenedor con `exit`
+
+![3/3_3](image/Taller6-Solución/3/3_3.png)
+
+---
+
+### 4.
 
 Liste todos los contenedores disponibles con el comando
 
+```shell
 sudo docker ps -a
+```
+
 Incluya un pantallazo con el listado y sus características en su reporte.
+
+![3/3_4](image/Taller6-Solución/3/3_4.png)
+
+---
+
+### 5.
 
 En la VM clone el repositorio de prueba
 
+```shell
 git clone https://github.com/dockersamples/node-bulletin-board
+```
+
+![3/3_5_1](image/Taller6-Solución/3/3_5_1.png)
+![3/3_5_2](image/Taller6-Solución/3/3_5_2.png)
+
+---
+
+### 6.
+
 Navegue al directorio del repositorio
 
+```shell
 cd node-bulletin-board/bulletin-board-app
+```
+
+![3/3_6](image/Taller6-Solución/3/3_6.png)
+
+---
+
+### 7.
+
 Liste todos los archivos en esta carpeta en su reporte.
+
+![3/3_7](image/Taller6-Solución/3/3_7.png)
+
+---
+
+### 8.
 
 Explore el Dockerfile, ¿qué información encuentra allí? Explique los comandos en su reporte.
 
-Explore el package.json, ¿qué información encuentra allí? Inclúyala en su reporte.
+![3/3_8](image/Taller6-Solución/3/3_8.png)
 
-Construya la imagen
-
-sudo docker build --tag bulletinboard:1.0 .
-Ejecute el contenedor con nombre bb y publíquelo en el puerto 8000
-
-sudo docker run --publish 8000:8080 --detach --name bb bulletinboard:1.0
-Liste todos los contenedores disponibles con el comando
-
-sudo docker ps -a
-Incluya un pantallazo con el listado y sus características en su reporte.
-
-Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada. En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y antes se hacía en 8000:8000.
-
-Por Slack envíe la URL completa para acceder a la aplicación desplegada (IP+puerto).
-
----
-
-2. Abra el archivo Dockerfile y describa su contenido en su reporte. Para esto tenga presente que
-
-- FROM determina la imagen base que se usa como sistema operativo y aplicaciones iniciales.
-- RUN ejecuta comandos al interior del contenedor.
-- COPY copia archivos del sistema hospedador (la máquina virtual) al contenedor.
-- ENV permite definir variables de entorno.
-- EXPOSE abre un puerto del contenedor.
-- CMD es el comando que se ejecuta al lanzar el contenedor.
-
----
-
----
-
-## 3. Lanzando otros contenedores
-
-1. Lance un nuevo contenedor y conéctese a la terminal interactiva del mismo usando
-   bash con el comando
-
-2. Note que en este caso ha quedado conectado a la terminal del contenedor. En la
-   terminal del contenedor verifique la estructura de archivos con ls. En su reporte
-   incluya las carpetas disponibles en el directorio raíz.
-
-3. Liste todos los contenedores disponibles con el comando
-   `sudo docker ps -a`
-   Incluya un pantallazo con el listado y sus caracter´ısticas en su reporte.
-
-4. Liste todos los archivos en esta carpeta en su reporte
-
-5. Explore el Dockerfile, ¿qué informaci´on encuentra allí? Explique los comandos en
-   su reporte.
-
-6. Explore el package.json, ¿qué informaci´on encuentra allí? Inclúyala en su reporte.
-
-7. Liste todos los contenedores disponibles con el comando
-   `sudo docker ps -a`
-   Incluya un pantallazo con el listado y sus características en su reporte.
-
-8. Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada.
-   En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y
-   antes se hacía en 8000:8000.
-
-![1678397641818](image/Taller6-Solución/1678397641818.png)
-
-![1678397719388](image/Taller6-Solución/1678397719388.png)
-
-![1678397733053](image/Taller6-Solución/1678397733053.png)
-![1678397884550](image/Taller6-Solución/1678397884550.png)
-
-![1678398086305](image/Taller6-Solución/1678398086305.png)
-![1678398135919](image/Taller6-Solución/1678398135919.png)
-![1678398737107](image/Taller6-Solución/1678398737107.png)
-
-```
+```docker
 FROM node:current-slim
 
 WORKDIR /usr/src/app
@@ -476,91 +464,107 @@ CMD [ "npm", "start" ]
 COPY . .
 ```
 
-![1678398780028](image/Taller6-Solución/1678398780028.png)
+---
 
-```
+### 9.
+
+Explore el package.json, ¿qué información encuentra allí? Inclúyala en su reporte.
+
+![3/3_9](image/Taller6-Solución/3/3_9.png)
+
+```json
 {
-  "name": "vue-event-bulletin",
-  "version": "1.0.0",
-  "description": "Demo application for the scotch.io tutorial",
-  "main": "server.js",
-  "author": "Ryan Chenkie, Jason Lam",
-  "license": "MIT",
-  "dependencies": {
-    "bootstrap": "^3.3.6",
-    "ejs": "^2.3.4",
-    "express": "^4.13.3",
-    "morgan": "^1.6.1",
-    "vue": "^1.0.10",
-    "vue-resource": "^0.1.17"
-  },
-  "devDependencies": {
-    "body-parser": "^1.14.1",
-    "errorhandler": "^1.4.2",
-    "method-override": "^2.3.5",
-    "morgan": "^1.6.1"
-  },
-  "scripts": {
-    "start": "node server.js"
-  }
+	"name": "vue-event-bulletin",
+	"version": "1.0.0",
+	"description": "Demo application for the scotch.io tutorial",
+	"main": "server.js",
+	"author": "Ryan Chenkie, Jason Lam",
+	"license": "MIT",
+	"dependencies": {
+		"bootstrap": "^3.3.6",
+		"ejs": "^2.3.4",
+		"express": "^4.13.3",
+		"morgan": "^1.6.1",
+		"vue": "^1.0.10",
+		"vue-resource": "^0.1.17"
+	},
+	"devDependencies": {
+		"body-parser": "^1.14.1",
+		"errorhandler": "^1.4.2",
+		"method-override": "^2.3.5",
+		"morgan": "^1.6.1"
+	},
+	"scripts": {
+		"start": "node server.js"
+	}
 }
 ```
 
-### 4. Mas operaciones en Docker
+---
 
-1. Liste las im´agenes locales
-   `sudo docker image ls`
-   Incluya el resultado en su reporte.
+### 10.
 
-2. Liste los contenedores locales en ejecuci´on.
-   `sudo docker container ls`
-   Incluya el resultado en su reporte.
+Construya la imagen
 
-3. Liste todos los contenedores locales.
-   `sudo docker container ls -a`
-   Incluya el resultado en su reporte. Describa las diferencias entre im´agenes, contenedores y contenedores en ejecuci´ons.
+```shell
+sudo docker build --tag bulletinboard:1.0 .
+```
 
-4. Intente eliminar la imagen hello-world
-   `sudo docker image rm hello - world`
-   Incluya el resultado en su reporte. ¿Por qu´e no es posible eliminar la imagen?
+![3/3_10](image/Taller6-Solución/3/3_10.png)
 
-5. Elimine imagen hello-world
-   `sudo docker image rm --force hello - world`
-   Incluya el resultado en su reporte. Verifique que la imagen (y el contenedor asociado) se hayan eliminado. Incluya un pantallazo de los comandos y la salida en su
-   reporte.
+---
 
-6. Traiga la imagen de hello-world del registro
-   `sudo docker pull hello - world`
-   Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
-   encuentre localmente.
+### 11.
 
-7. Traiga la imagen del servidor web apache (httpd) del registro
-   `sudo docker pull httpd`
-   Incluya el resultado y su interpretaci´on en su reporte. Verifique que la imagen se
-   encuentre localmente
+Ejecute el contenedor con nombre bb y publíquelo en el puerto 8000
 
-8. Verifique que la imagen se encuentre localmente
-   `sudo docker images`
-   Incluya un pantallazo del resultado en su reporte.
+```shell
+sudo docker run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+```
 
-9. Usando esta imagen lance un contenedor con nombre docker-apache y acople el
-   puerto 80 de la m´aquina con el puerto 80 del contenedor
-   `sudo docker run -d --name docker - apache -p 80:80 -d httpd`
-   El servidor debe estar corriendo por el puerto 80, luego debe poder accederlo desde
-   el navegador solamente con la IP. Incluya un pantallazo del resultado en su reporte.
+![3/3_11](image/Taller6-Solución/3/3_11.png)
 
-10. Pruebe ahora a detener el contenedor con el comando
-    `sudo docker container stop docker - apache`
-    Verifique en su navegador que el servicio se ha detenido. Tome un pantallazo para
-    su reporte.
+---
 
-11. Reinicie nuevamente contenedor con el comando
-    `sudo docker container start docker - apache`
-    Verifique en su navegador que el servicio ha regresado. Tome un pantallazo para su
-    reporte.
+### 12.
 
-12. Para ver los ´ultimos 10 registros del log de su contenedor ejecute el comando
-    `sudo docker container logs --tail 10 docker-apache`
-    Incluya el resultado en su reporte.
+Liste todos los contenedores disponibles con el comando
 
-13. Env´ıe por Slack e incluya en su reporte el enlace a su repositorio con la imagen.
+```shell
+sudo docker ps -a
+```
+
+Incluya un pantallazo con el listado y sus características en su reporte.
+
+![3/3_12](image/Taller6-Solución/3/3_12.png)
+
+---
+
+### 13.
+
+Abra el puerto 8000 en su instancia y explore en el navegador la aplicación lanzada. En su reporte explique por qué en este caso se publica en los puertos 8000:8080 y antes se hacía en 8000:8000.
+
+![3/3_13](image/Taller6-Solución/3/3_13.png)
+
+La diferencia es como funciona y a qué hace referencia cada elemento. Para publicar un contenedor usamos la sintaxis
+
+```shell
+-p 1111:2222
+```
+
+Donde `1111` hace referencia al puerto del host de Docker (AWS).
+Por otro lado, `2222` hace referencia al puerto del contenedor.
+
+Fuente: [Container networking](https://docs.docker.com/config/containers/container-networking/)
+
+---
+
+### 14.
+
+Por Slack envíe la URL completa para acceder a la aplicación desplegada (IP+puerto).
+
+![3/3_14](image/Taller6-Solución/3/3_14.png)
+
+---
+
+---
