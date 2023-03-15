@@ -583,6 +583,8 @@ sudo docker image ls
 
 Incluya el resultado en su reporte.
 
+![4/4_1](image/Taller6-Solución/4/4_1.png)
+
 ---
 
 ### 2.
@@ -595,6 +597,8 @@ sudo docker container ls
 
 Incluya el resultado en su reporte.
 
+![4/4_2](image/Taller6-Solución/4/4_2.png)
+
 ---
 
 ### 3.
@@ -605,7 +609,9 @@ Liste todos los contenedores locales.
 sudo docker container ls -a
 ```
 
-Incluya el resultado en su reporte. Describa las diferencias entre imágenes, contenedores y contenedores en ejecucións.
+Incluya el resultado en su reporte. Describa las diferencias entre imágenes, contenedores y contenedores en ejecución.
+
+![4/4_3](image/Taller6-Solución/4/4_3.png)
 
 ---
 
@@ -619,6 +625,12 @@ sudo docker image rm hello-world
 
 Incluya el resultado en su reporte. ¿Por qué no es posible eliminar la imagen?
 
+![4/4_4](image/Taller6-Solución/4/4_4.png)
+
+No es posible eliminar la imagen ya que hay un contenedor que está haciendo uso de la imagen en cuestión, por lo que primero sería necesario eliminar el contenedor que hace referencia a la imagen.
+
+Fuente: [Docker daemon conflict](https://stackoverflow.com/questions/33907835/docker-error-cannot-delete-docker-container-conflict-unable-to-remove-reposito)
+
 ---
 
 ### 5.
@@ -630,6 +642,8 @@ sudo docker image rm --force hello-world
 ```
 
 Incluya el resultado en su reporte. Verifique que la imagen (y el contenedor asociado) se hayan eliminado. Incluya un pantallazo de los comandos y la salida en su reporte.
+
+![4/4_5](image/Taller6-Solución/4/4_5.png)
 
 ---
 
@@ -643,6 +657,12 @@ sudo docker pull hello-world
 
 Incluya el resultado y su interpretación en su reporte. Verifique que la imagen se encuentre localmente.
 
+![4/4_6_1](image/Taller6-Solución/4/4_6_1.png)
+
+![4/4_6_2](image/Taller6-Solución/4/4_6_2.png)
+
+![4/4_6_3](image/Taller6-Solución/4/4_6_3.png)
+
 ---
 
 ### 7.
@@ -654,6 +674,8 @@ sudo docker container run --name holamundo hello-world
 ```
 
 Note que al ejecutar retorna inmediatamente a la terminal de la instancia.
+
+![4/4_7](image/Taller6-Solución/4/4_7.png)
 
 ---
 
@@ -667,6 +689,8 @@ sudo docker pull httpd
 
 Incluya el resultado y su interpretación en su reporte. Verifique que la imagen se encuentre localmente.
 
+![4/4_8](image/Taller6-Solución/4/4_8.png)
+
 ---
 
 ### 9.
@@ -678,6 +702,8 @@ sudo docker images
 ```
 
 Incluya un pantallazo del resultado en su reporte.
+
+![4/4_9](image/Taller6-Solución/4/4_9.png)
 
 ---
 
@@ -691,11 +717,16 @@ sudo docker run -d --name docker-apache -p 80:80 -d httpd
 
 El servidor debe estar corriendo por el puerto 80, luego debe poder accederlo desde el navegador solamente con la IP. Incluya un pantallazo del resultado en su reporte.
 
+![4/4_10_1](image/Taller6-Solución/4/4_10_1.png)
+![4/4_10_2](image/Taller6-Solución/4/4_10_2.png)
+
 ---
 
 ### 11.
 
 Por Slack comparta la IP de su máquina y contenedor con la página web corriendo.
+
+![4/4_11](image/Taller6-Solución/4/4_11.png)
 
 ---
 
@@ -709,6 +740,10 @@ sudo docker container stop docker-apache
 
 Verifique en su navegador que el servicio se ha detenido. Tome un pantallazo para su reporte.
 
+![4/4_12_1](image/Taller6-Solución/4/4_12_1.png)
+
+![4/4_12_2](image/Taller6-Solución/4/4_12_2.png)
+
 ---
 
 ### 13.
@@ -721,19 +756,31 @@ sudo docker container start docker-apache
 
 Verifique en su navegador que el servicio ha regresado. Tome un pantallazo para su reporte.
 
+![4/4_13_1](image/Taller6-Solución/4/4_13_1.png)
+
+![4/4_13_2](image/Taller6-Solución/4/4_13_2.png)
+
 ---
 
 ### 14.
 
 Para ver los últimos 10 registros del log de su contenedor ejecute el comando
-sudo docker container logs –tail 10 docker-apache
+
+```shell
+sudo docker container logs --tail 10 docker-apache
+```
+
 Incluya el resultado en su reporte.
+
+![4/4_14](image/Taller6-Solución/4/4_14.png)
 
 ---
 
 ### 15.
 
 Cree una cuenta en Docker Hub https://hub.docker.com y cree un repositorio público, por ejemplo test-repo.
+
+![4/4_15](image/Taller6-Solución/4/4_15.png)
 
 ---
 
@@ -745,6 +792,8 @@ Desde la terminal de su instancia loguéese en su cuenta usando el comando
 sudo docker login
 ```
 
+![4/4_16](image/Taller6-Solución/4/4_16.png)
+
 ---
 
 ### 17.
@@ -754,6 +803,8 @@ Taguee la imagen httpd para subirla al repositorio
 ```shell
 sudo docker tag httpd usuario/repositorio:httpd
 ```
+
+![4/4_17](image/Taller6-Solución/4/4_17.png)
 
 ---
 
@@ -765,8 +816,12 @@ Publique su imagen para subirla al repositorio
 sudo docker push usuario/repositorio:httpd
 ```
 
+![4/4_18](image/Taller6-Solución/4/4_18.png)
+
 ---
 
 ### 19.
 
 Envíe por Slack e incluya en su reporte el enlace a su repositorio con la imagen.
+
+![4/4_19](image/Taller6-Solución/4/4_19.png)
