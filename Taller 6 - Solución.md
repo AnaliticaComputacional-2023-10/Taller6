@@ -281,7 +281,7 @@ scp -i key.pem Dockerfile ubuntu@IP:/home/ubuntu
 
 Repita para hello.py.
 
-![2/2_3](image/Taller6-Solución/1678224928378.png)
+![2/2_3](image/Taller6-Solución/2/2_3.png)
 
 ---
 
